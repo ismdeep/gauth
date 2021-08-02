@@ -1,15 +1,17 @@
 package gauth
 
 import (
-	"math/rand"
+	"fmt"
 	"testing"
 	"time"
 )
 
 func TestVerifyCode(t *testing.T) {
-	rand.Seed(time.Now().UnixNano())
 	secret := CreateSecret()
 	code := GetCode(secret)
+
+	fmt.Println(secret, code)
+	time.Sleep(1 * time.Second)
 
 	type args struct {
 		secret string
