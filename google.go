@@ -61,17 +61,12 @@ func (receiver *GAuth) CreateSecret(lens ...int) (string, error) {
 }
 
 // VerifyCode Check if the code is correct. This will accept codes starting from $discrepancy*30sec ago to $discrepancy*30sec from now
-func (receiver *GAuth) VerifyCode(secret, code string, discrepancy int64) (bool, error) {
+func (receiver *GAuth) VerifyCode(secret, code string) (bool, error) {
 	// now time
 	curTimeSlice := time.Now().Unix() / 30
-	for i := -discrepancy; i <= discrepancy; i++ {
-		calculatedCode, err := receiver.GetCode(secret, curTimeSlice+i)
-		if err != nil {
-			return false, err
-		}
-		if calculatedCode == code {
-			return true, nil
-		}
+	calculatedCode, _ := receiver.GetCode(secret, curTimeSlice)
+	if calculatedCode == code {
+		return true, nil
 	}
 	return false, nil
 }
