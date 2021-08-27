@@ -1,9 +1,9 @@
 package gauth
 
 // CreateSecret create secret
-func CreateSecret() string {
+func CreateSecret(length int) string {
 	ga := NewGAuth()
-	secret, err := ga.CreateSecret(16)
+	secret, err := ga.CreateSecret(length)
 	if err != nil {
 		return ""
 	}

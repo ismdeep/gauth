@@ -37,19 +37,15 @@ func (receiver *GAuth) SetCodeLength(length float64) error {
 
 // CreateSecret create new secret
 // 16 characters, randomly chosen from the allowed base32 characters.
-func (receiver *GAuth) CreateSecret(lens ...int) (string, error) {
+func (receiver *GAuth) CreateSecret(secretLen int) (string, error) {
 	var (
 		length int
 		secret []string
 	)
-	// init length
-	switch len(lens) {
-	case 0:
+	if secretLen == 0 {
 		length = 16
-	case 1:
-		length = lens[0]
-	default:
-		return "", ErrParam
+	} else {
+		length = secretLen
 	}
 	for i := 0; i < length; i++ {
 		val := new(big.Int).SetInt64(int64(128))

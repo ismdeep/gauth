@@ -1,6 +1,9 @@
 package gauth
 
-import "testing"
+import (
+	"strings"
+	"testing"
+)
 
 func TestGetCode(t *testing.T) {
 	type args struct {
@@ -13,7 +16,7 @@ func TestGetCode(t *testing.T) {
 		{
 			name: "",
 			args: args{
-				secret: "CUDPNHDNMMV6SR34",
+				secret: "MSCSEUJ6ZY7LEJMV",
 			},
 		},
 	}
@@ -22,5 +25,15 @@ func TestGetCode(t *testing.T) {
 			code := GetCode(tt.args.secret)
 			t.Logf("code = %v", code)
 		})
+	}
+}
+
+func BenchmarkGetCode(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		secret := CreateSecret(16)
+		code := GetCode(secret)
+		if strings.TrimSpace(code) == "" {
+			panic("error")
+		}
 	}
 }

@@ -7,7 +7,7 @@ import (
 )
 
 func TestVerifyCode(t *testing.T) {
-	secret := CreateSecret()
+	secret := CreateSecret(16)
 	code := GetCode(secret)
 
 	fmt.Println(secret, code)
