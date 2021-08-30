@@ -30,7 +30,7 @@ func TestGetCode(t *testing.T) {
 
 func BenchmarkGetCode(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		secret := CreateSecret(16)
+		secret := CreateSecret(32)
 		code := GetCode(secret)
 		if strings.TrimSpace(code) == "" {
 			panic("error")
